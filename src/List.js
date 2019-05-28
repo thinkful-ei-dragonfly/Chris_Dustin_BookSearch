@@ -6,7 +6,8 @@ class List extends Component {
     render() {
         const array = this.props.items;
         const searchResults = array.map((book, i) => {
-            return <Book author={book.volumeInfo.authors[0]} title={book.volumeInfo.title} image={book.volumeInfo.imageLinks.thumbnail} description={book.volumeInfo.description} key={i}/>
+            console.log(book)
+            return <Book volumeInfo={book.volumeInfo} saleInfo={book.saleInfo} key={i}/>
         });
         return (
             <ul>

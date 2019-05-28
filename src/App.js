@@ -17,26 +17,36 @@ class App extends Component {
 
   updateSearch = (search) => {
     this.setState({
-      search, 
-    })
+      search,
+    }, this.fetchBooks)
   }
 
   updateBookFilter = (bookFilter) => {
     this.setState({
       bookFilter,
-    })
+    }, this.fetchBooks)
   }
 
   updatePrintFilter = (printFilter) => {
     this.setState({
       printFilter,
-    })
+    },this.fetchBooks)
+  }
+
+  renderErrorMessage() {
+    if (this.state.error) {
+    return <>
+          {this.state.error}
+          </>
+    } else {
+      return ``;
+    }
   }
 
 
 
-  fetchBooks = (search) => {
-    let url = `https://www.googleapis.com/books/v1/volumes?q=${search}&key=AIzaSyCFPV5tutDwVJkBJZS0NzkljCzq_3UAXtQ`;
+  fetchBooks = () => {
+    let url = `https://www.googleapis.com/books/v1/volumes?q=${this.state.search}&key=AIzaSyCFPV5tutDwVJkBJZS0NzkljCzq_3UAXtQ`;
     // const options = {
     //     method: `GET`,
     //     headers: {
@@ -44,11 +54,11 @@ class App extends Component {
     //       "Accept": "application/json"
     //     }
     if (this.state.bookFilter && this.state.printFilter) {
-      url = `https://www.googleapis.com/books/v1/volumes?q=${this.state.search}&filter=${this.state.filter}&printType=${this.state.printType}&key=AIzaSyCFPV5tutDwVJkBJZS0NzkljCzq_3UAXtQ`
-    } else if (this.state.bookFilter) {
-      url = `https://www.googleapis.com/books/v1/volumes?q=${this.state.search}&filter=${this.state.filter}&key=AIzaSyCFPV5tutDwVJkBJZS0NzkljCzq_3UAXtQ`
+      url = `https://www.googleapis.com/books/v1/volumes?q=${this.state.search}&filter=${this.state.bookFilter}&printType=${this.state.printFilter}&key=AIzaSyCFPV5tutDwVJkBJZS0NzkljCzq_3UAXtQ`
+      } else if (this.state.bookFilter) {
+      url = `https://www.googleapis.com/books/v1/volumes?q=${this.state.search}&filter=${this.state.bookFilter}&key=AIzaSyCFPV5tutDwVJkBJZS0NzkljCzq_3UAXtQ`
     } else if (this.state.printFilter) {
-      url = `https://www.googleapis.com/books/v1/volumes?q=${this.state.search}&printType=${this.state.printType}&key=AIzaSyCFPV5tutDwVJkBJZS0NzkljCzq_3UAXtQ`
+      url = `https://www.googleapis.com/books/v1/volumes?q=${this.state.search}&printType=${this.state.printFilter}&key=AIzaSyCFPV5tutDwVJkBJZS0NzkljCzq_3UAXtQ`
     } 
 
     fetch(url)
@@ -60,6 +70,10 @@ class App extends Component {
     })
     .then(res => res.json())
     .then(data => {
+      if (!data.items) {
+        throw new Error (`There are no results for your search`)
+      }
+      console.log(data);
       this.setState({
         books: data.items,
         error: null
@@ -67,7 +81,8 @@ class App extends Component {
     })
     .catch(err => {
       this.setState({
-        error: err.message
+        error: err.message,
+        books: []
       });
     })
   }
@@ -82,6 +97,7 @@ class App extends Component {
         </header>
         <div className='searchBar'>
           <Search updateSearch={this.updateSearch} fetchBooks={this.fetchBooks}/>
+          {this.renderErrorMessage()}
         </div>
         <div className = 'filterBar'>
           <Filter updateBookFilter={this.updateBookFilter} updatePrintFilter={this.updatePrintFilter} fetchBooks={this.fetchBooks}/>

@@ -1,15 +1,11 @@
 import React from 'react';
 
 class Filter extends React.Component{
-  updateFilter = (e) => {
-    this.props.fetchBooks();
-  }
   render() {
   return (
     <form>
       <label htmlFor='print-filter' >Print Type: </label>
-      <select type='text' id='print-filter' onChange={e => {this.props.updatePrintFilter(e.target.value)
-      this.updateFilter()}}>
+      <select type='text' id='print-filter' onChange={e => this.props.updatePrintFilter(e.target.value)}>
         <option value='all'>All</option>
         <option value='books'>Books</option>
         <option value='magazines'>Magazines</option>
