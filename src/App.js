@@ -9,7 +9,7 @@ class App extends Component {
     super(props);
     this.state = {
       books: [],
-      bookFilter: null,
+      bookFilter: 'all',
       search: null,
       printFilter: null,
     };

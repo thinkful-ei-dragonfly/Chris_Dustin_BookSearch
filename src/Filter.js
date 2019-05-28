@@ -12,6 +12,7 @@ function Filter(props){
 
       <label htmlFor='book-filter'>Book Type: </label>
       <select type='text' id='book-filter' onChange={e => props.updateBookFilter(e.target.value)}>
+        <option value={null}>    </option>
         <option value='ebooks'>Ebooks</option>
         <option value='free-ebooks'>Free Ebooks</option>
         <option value='full'>Full Books</option>
