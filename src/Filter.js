@@ -3,8 +3,8 @@ import React from 'react';
 function Filter(props){
   return (
     <form>
-      <label htmlFor='print-filter' onChange={e => props.updatePrintFilter(e.target.value)}>Print Type: </label>
-      <select type='text' id='print-filter'>
+      <label htmlFor='print-filter' >Print Type: </label>
+      <select type='text' id='print-filter' onChange={e => props.updatePrintFilter(e.target.value)}>
         <option value='all'>All</option>
         <option value='books'>Books</option>
         <option value='magazines'>Magazines</option>
