@@ -6,6 +6,7 @@ class Search extends React.Component{
 
   updateSearch = (e) => {
     e.preventDefault();
+    this.props.updateSearch(e.target.searchBar.value);
     this.props.fetchBooks(e.target.searchBar.value);
   }
 
