@@ -1,12 +1,15 @@
-import React, { Component } from 'react';
-import './App.css';
-import List from './List';
+import React, { Component } from "react";
+import "./App.css";
+import List from "./List";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: []
+      books: [],
+      bookFilter: null,
+      search: null,
+      printFilter: null,
     };
   }
   componentDidMount() {
@@ -17,12 +20,11 @@ class App extends Component {
     //       "Authorizaiton": "Bearer AIzaSyCFPV5tutDwVJkBJZS0NzkljCzq_3UAXtQ",
     //       "Accept": "application/json"
     //     }
-    
 
     fetch(url)
       .then(res => {
-        if(!res.ok) {
-          throw new Error('Something went wrong, please try again later.');
+        if (!res.ok) {
+          throw new Error("Something went wrong, please try again later.");
         }
         return res;
       })
@@ -38,15 +40,26 @@ class App extends Component {
           error: err.message
         });
       });
+  }
 
-  };
+
+
   render() {
     const results = this.state.books;
     return (
-      <ul>
-        <List items={results}/>
-      </ul>
-    )
+      <main>
+        <header>
+          <h1>Google Book Search</h1>
+        </header>
+        <div className='searchBar'>
+          <Search />
+        </div>
+        <div className = 'filterBar'>
+          <Filter />
+        </div>
+        <List items={results} />
+      </main>
+    );
   }
 }
 
