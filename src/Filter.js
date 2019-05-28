@@ -3,7 +3,7 @@ import React from 'react';
 function Filter(props){
   return (
     <form>
-      <label htmlFor='print-filter'>Print Type: </label>
+      <label htmlFor='print-filter' onChange={e => props.updatePrintFilter(e.target.value)}>Print Type: </label>
       <select type='text' id='print-filter'>
         <option value='all'>All</option>
         <option value='books'>Books</option>
@@ -11,7 +11,7 @@ function Filter(props){
       </select>
 
       <label htmlFor='book-filter'>Book Type: </label>
-      <select type='text' id='book-filter'>
+      <select type='text' id='book-filter' onChange={e => props.updateBookFilter(e.target.value)}>
         <option value='ebooks'>Ebooks</option>
         <option value='free-ebooks'>Free Ebooks</option>
         <option value='full'>Full Books</option>

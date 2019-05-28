@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./App.css";
 import List from "./List";
+import Search from './Search';
+import Filter from './Filter';
 
 class App extends Component {
   constructor(props) {
@@ -71,10 +73,10 @@ class App extends Component {
           <h1>Google Book Search</h1>
         </header>
         <div className='searchBar'>
-          <Search />
+          <Search updateSearch={this.updateSearch}/>
         </div>
         <div className = 'filterBar'>
-          <Filter />
+          <Filter updateBookFilter={this.updateBookFilter} updatePrintFilter={this.updatePrintFilter}/>
         </div>
         <List items={results} />
       </main>
