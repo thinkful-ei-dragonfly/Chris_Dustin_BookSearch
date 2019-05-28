@@ -10,15 +10,8 @@ class App extends Component {
     this.state = {
       books: [],
       bookFilter: null,
-      search: null,
       printFilter: null,
     };
-  }
-
-  updateSearch = (search) => {
-    this.setState({
-      search,
-    })
   }
 
   updateBookFilter = (bookFilter) => {
@@ -33,8 +26,8 @@ class App extends Component {
     })
   }
 
-  componentDidMount() {
-    const url = `https://www.googleapis.com/books/v1/volumes?q=harry&key=AIzaSyCFPV5tutDwVJkBJZS0NzkljCzq_3UAXtQ`;
+  fetchBooks = (search) => {
+    const url = `https://www.googleapis.com/books/v1/volumes?q=${search}&key=AIzaSyCFPV5tutDwVJkBJZS0NzkljCzq_3UAXtQ`;
     // const options = {
     //     method: `GET`,
     //     headers: {
@@ -73,7 +66,7 @@ class App extends Component {
           <h1>Google Book Search</h1>
         </header>
         <div className='searchBar'>
-          <Search updateSearch={this.updateSearch}/>
+          <Search updateSearch={this.updateSearch} fetchBooks={this.fetchBooks}/>
         </div>
         <div className = 'filterBar'>
           <Filter updateBookFilter={this.updateBookFilter} updatePrintFilter={this.updatePrintFilter}/>
