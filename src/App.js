@@ -12,6 +12,25 @@ class App extends Component {
       printFilter: null,
     };
   }
+
+  updateSearch = (search) => {
+    this.setState({
+      search,
+    })
+  }
+
+  updateBookFilter = (bookFilter) => {
+    this.setState({
+      bookFilter,
+    })
+  }
+
+  updatePrintFilter = (printFilter) => {
+    this.setState({
+      printFilter,
+    })
+  }
+
   componentDidMount() {
     const url = `https://www.googleapis.com/books/v1/volumes?q=harry&key=AIzaSyCFPV5tutDwVJkBJZS0NzkljCzq_3UAXtQ`;
     // const options = {
